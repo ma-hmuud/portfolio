@@ -1,41 +1,43 @@
 import type { Metadata } from "next";
-import { Outfit, JetBrains_Mono } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
-const outfit = Outfit({
-  variable: "--font-outfit",
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains",
+const dmSans = DM_Sans({
+  variable: "--font-satoshi",
   subsets: ["latin"],
+  weight: ["400", "500", "700"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Mahmoud Ahmed | Full Stack Developer",
+  title: "Mahmoud Ahmed — Full Stack Developer",
   description:
-    "Junior Full Stack Developer with 1+ year of hands-on experience building and deploying production web applications using Next.js, React, TypeScript, and Tailwind CSS.",
+    "Full Stack Developer crafting modern web applications with Next.js, React, TypeScript, and Node.js. Based in Alexandria, Egypt.",
   keywords: [
     "Full Stack Developer",
-    "React",
+    "React Developer",
     "Next.js",
     "TypeScript",
     "Node.js",
-    "Portfolio",
+    "Alexandria",
   ],
   authors: [{ name: "Mahmoud Ahmed" }],
   openGraph: {
-    title: "Mahmoud Ahmed | Full Stack Developer",
-    description:
-      "Junior Full Stack Developer specializing in Next.js, React, and TypeScript",
+    title: "Mahmoud Ahmed — Full Stack Developer",
+    description: "Crafting modern web experiences with precision and care",
     type: "website",
   },
   icons: {
-    icon: "/icon.svg",
-  }
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -44,11 +46,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body
-        className={`${outfit.variable} ${jetbrainsMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <body className={`${cormorant.variable} ${dmSans.variable} antialiased`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange={false}
+        >
+          {/* Subtle noise texture */}
+          <div className="noise-overlay" />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

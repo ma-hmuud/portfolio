@@ -11,6 +11,13 @@
 !.yarn/releases
 !.yarn/versions
 
+# pnpm workspace state file 
+.agents
+.claude
+.codex
+.opencode
+
+.pnpm-workspace-state.json
 # testing
 /coverage
 

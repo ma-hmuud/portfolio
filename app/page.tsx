@@ -1,33 +1,23 @@
-import { Navbar } from "./components/navbar";
-import { Hero } from "./components/hero";
-import { About } from "./components/about";
-import { Experience } from "./components/experience";
-import { Projects } from "./components/projects";
-import { Skills } from "./components/skills";
-import { Contact } from "./components/contact";
+"use client";
+
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
+import { Hero } from "@/components/sections/hero";
+import { Projects } from "@/components/sections/projects";
+import { About } from "@/components/sections/about";
+import { Contact } from "@/components/sections/contact";
 
 export default function Home() {
   return (
-    <>
-      {/* Animated Background */}
-      <div className="gradient-bg">
-        <div className="orb orb-1" />
-        <div className="orb orb-2" />
-        <div className="orb orb-3" />
-      </div>
-
-      {/* Navigation */}
+    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-accent selection:text-accent-foreground">
       <Navbar />
-
-      {/* Main Content */}
       <main>
         <Hero />
-        <About />
-        <Experience />
         <Projects />
-        <Skills />
+        <About />
         <Contact />
       </main>
-    </>
+      <Footer />
+    </div>
   );
 }
