@@ -33,6 +33,9 @@ export const metadata: Metadata = {
       "Junior Full Stack Developer specializing in Next.js, React, and TypeScript",
     type: "website",
   },
+  icons: {
+    icon: "/icon.svg",
+  }
 };
 
 export default function RootLayout({

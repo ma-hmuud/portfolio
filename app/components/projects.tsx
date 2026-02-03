@@ -1,9 +1,10 @@
 "use client";
 
 import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
-import { useRef, type MouseEvent } from "react";
+import { useRef, useState, type MouseEvent } from "react";
+import Image from "next/image";
 import { ScrollReveal, StaggerContainer, StaggerItem } from "./ui/scroll-reveal";
-import { ExternalLink, Github, Folder, Star } from "lucide-react";
+import { ExternalLink, Github, Star, Layers } from "lucide-react";
 
 const projects = [
   {
@@ -13,6 +14,7 @@ const projects = [
     technologies: ["Next.js 15", "React", "TypeScript", "Tailwind CSS", "Drizzle ORM", "Clerk", "UploadThing"],
     github: "https://github.com/ma-hmuud/google-drive-tutorial/",
     live: "https://ma-drive-tutorial.netlify.app/",
+    image: "/projects/ma-drive.png",
     featured: true,
     gradient: "from-cyan to-violet",
     period: "Jan 2026 – Feb 2026",
@@ -24,6 +26,7 @@ const projects = [
     technologies: ["Express.js 5", "PostgreSQL", "Redis", "Next.js 15", "AWS S3", "SendGrid"],
     github: "#",
     live: "https://shafei.vercel.app/",
+    image: "/projects/shafei.png",
     featured: true,
     gradient: "from-violet to-rose",
     period: "Apr 2025 – Aug 2025",
@@ -35,14 +38,16 @@ const projects = [
     technologies: ["ASP.NET Core", "Entity Framework", "SQL Server", "Bootstrap 5", "jQuery"],
     github: "https://github.com/ma-hmuud/learning-world",
     live: "http://learningworld.runasp.net/",
+    image: "/projects/learning-world.png",
     featured: false,
     gradient: "from-rose to-amber",
     period: "Apr 2024 – Oct 2024",
   },
 ];
 
-function ProjectCard({ project }: { project: typeof projects[0]; index: number }) {
+function ProjectCard({ project }: { project: typeof projects[0] }) {
   const ref = useRef<HTMLDivElement>(null);
+  const [imageError, setImageError] = useState(false);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -90,31 +95,38 @@ function ProjectCard({ project }: { project: typeof projects[0]; index: number }
           <div className="w-full h-full bg-muted rounded-[15px]" />
         </div>
 
-        <div className="relative p-6 md:p-8 h-full flex flex-col">
-          {/* Header */}
-          <div className="flex items-start justify-between mb-4">
+        <div className="relative h-full flex flex-col">
+          {/* Project Image Preview */}
+          <div className="relative h-48 overflow-hidden rounded-t-2xl">
             <div
-              className={`w-12 h-12 rounded-xl bg-linear-to-br ${project.gradient} flex items-center justify-center`}
-            >
-              <Folder className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex items-center gap-3">
-              {project.featured && (
-                <span className="flex items-center gap-1 text-amber text-sm">
-                  <Star size={14} fill="currentColor" />
-                  Featured
-                </span>
-              )}
+              className={`absolute inset-0 bg-linear-to-br ${project.gradient} opacity-30`}
+            />
+            {!imageError ? (
+              <Image
+                src={project.image}
+                alt={`${project.title} preview`}
+                fill
+                className="object-cover object-top transition-transform duration-500 group-hover:scale-110"
+                onError={() => setImageError(true)}
+              />
+            ) : (
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <Layers className="w-12 h-12 text-foreground/40 mb-2" />
+                <span className="text-sm text-muted-foreground font-mono">{project.title}</span>
+              </div>
+            )}
+            {/* Overlay on hover */}
+            <div className="absolute inset-0 bg-background/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
               {project.github !== "#" && (
                 <motion.a
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  className="p-2 rounded-lg bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground transition-colors"
+                  className="p-3 rounded-full bg-muted/80 text-foreground hover:text-cyan transition-colors"
                 >
-                  <Github size={18} />
+                  <Github size={22} />
                 </motion.a>
               )}
               {project.live !== "#" && (
@@ -122,39 +134,53 @@ function ProjectCard({ project }: { project: typeof projects[0]; index: number }
                   href={project.live}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  className="p-2 rounded-lg bg-muted hover:bg-muted/80 text-muted-foreground hover:text-cyan transition-colors"
+                  className="p-3 rounded-full bg-muted/80 text-foreground hover:text-cyan transition-colors"
                 >
-                  <ExternalLink size={18} />
+                  <ExternalLink size={22} />
                 </motion.a>
               )}
             </div>
+            {/* Featured badge */}
+            {project.featured && (
+              <div className="absolute top-3 right-3">
+                <span className="flex items-center gap-1 px-2 py-1 rounded-full bg-amber/20 text-amber text-xs font-medium backdrop-blur-sm">
+                  <Star size={12} fill="currentColor" />
+                  Featured
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Content */}
-          <div className="grow">
-            <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2 group-hover:text-cyan transition-colors">
+          <div className="p-6 flex flex-col grow">
+            <h3 className="text-xl font-bold text-foreground mb-1 group-hover:text-cyan transition-colors">
               {project.title}
             </h3>
             <p className="text-xs text-muted-foreground mb-3 font-mono">
               {project.period}
             </p>
-            <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+            <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
               {project.description}
             </p>
-          </div>
 
-          {/* Technologies */}
-          <div className="flex flex-wrap gap-2 mt-auto">
-            {project.technologies.map((tech) => (
-              <span
-                key={tech}
-                className="px-2 py-1 text-xs font-mono bg-linear-to-r from-cyan/10 to-violet/10 border border-cyan/20 rounded-md text-cyan"
-              >
-                {tech}
-              </span>
-            ))}
+            {/* Technologies */}
+            <div className="flex flex-wrap gap-2 mt-auto">
+              {project.technologies.slice(0, 4).map((tech) => (
+                <span
+                  key={tech}
+                  className="px-2 py-1 text-xs font-mono bg-linear-to-r from-cyan/10 to-violet/10 border border-cyan/20 rounded-md text-cyan"
+                >
+                  {tech}
+                </span>
+              ))}
+              {project.technologies.length > 4 && (
+                <span className="px-2 py-1 text-xs font-mono text-muted-foreground">
+                  +{project.technologies.length - 4} more
+                </span>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -178,9 +204,9 @@ export function Projects() {
         </ScrollReveal>
 
         <StaggerContainer staggerDelay={0.15} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
+          {projects.map((project) => (
             <StaggerItem key={project.title} className="h-full">
-              <ProjectCard project={project} index={index} />
+              <ProjectCard project={project} />
             </StaggerItem>
           ))}
         </StaggerContainer>
