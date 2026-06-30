@@ -29,7 +29,7 @@ const projects = [
       "Integrated Next.js with PostgreSQL via Drizzle ORM.",
       "Created dynamic calendar interfaces utilizing FullCalendar and Radix UI.",
     ],
-    github: "https://github.com/ma-hmuud/swiftshift",
+    github: "https://github.com/ma-hmuud/swiftshift-scheduler",
     live: "https://swiftshift-scheduler.vercel.app/",
     image: "/projects/swiftshift.png",
     year: "2026",
