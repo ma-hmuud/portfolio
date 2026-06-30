@@ -1,26 +1,32 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, DM_Sans } from "next/font/google";
+import { Syne, Space_Mono, Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
+const syne = Syne({
   variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
-const dmSans = DM_Sans({
+const spaceMono = Space_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+});
+
+const inter = Inter({
   variable: "--font-body",
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Mahmoud Ahmed — Full Stack Developer",
   description:
-    "Full Stack Developer crafting modern web applications with Next.js, React, TypeScript, and Node.js. Based in Alexandria, Egypt.",
+    "Results-driven Junior Full Stack Developer building scalable web applications. Based in Alexandria, Egypt.",
   keywords: [
     "Full Stack Developer",
     "React Developer",
@@ -47,18 +53,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className={`${spaceGrotesk.variable} ${dmSans.variable} antialiased`}>
+      <body className={`${syne.variable} ${inter.variable} ${spaceMono.variable} antialiased selection:bg-accent selection:text-accent-foreground`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange={false}
         >
-          {/* Animated Gradient Background */}
-          <div className="fixed inset-0 -z-10 bg-background" />
-          <div className="fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-accent/20 via-background to-background opacity-50" />
-          <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-primary/10 via-background to-background opacity-50" />
-          
+          <div className="bg-noise mix-blend-overlay fixed inset-0 z-50 pointer-events-none" />
           {children}
         </ThemeProvider>
       </body>
