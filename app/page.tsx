@@ -4,6 +4,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { Hero } from "@/components/sections/hero";
 import { Projects } from "@/components/sections/projects";
+import { GithubActivity } from "@/components/sections/github-activity";
 import { About } from "@/components/sections/about";
 import { Contact } from "@/components/sections/contact";
 
@@ -14,6 +15,7 @@ export default function Home() {
       <main>
         <Hero />
         <Projects />
+        <GithubActivity />
         <About />
         <Contact />
       </main>

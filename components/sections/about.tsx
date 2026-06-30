@@ -85,19 +85,16 @@ export function About() {
               SYSTEM_INFO // ABOUT_ME
             </div>
 
-            <h2 className="text-4xl sm:text-5xl md:text-7xl font-black uppercase mb-8 md:mb-10 leading-none md:leading-[0.9]">
-              ENGINEERING WITH <br className="hidden sm:block" />{" "}
-              <span className="text-stroke">PRECISION</span> AND RAW POWER.
+            <h2 className="text-4xl sm:text-5xl md:text-7xl font-black uppercase mb-8 md:mb-10 leading-[1] md:leading-[0.9]">
+              PASSIONATE ABOUT <br className="hidden sm:block" /> <span className="text-stroke">SOLVING</span> PROBLEMS.
             </h2>
-
+            
             <div className="space-y-4 md:space-y-6 font-mono text-base md:text-lg text-muted-foreground leading-relaxed border-l-4 border-foreground pl-4 md:pl-6">
               <p>
-                I don&apos;t just write code; I engineer solutions that are
-                scalable, maintainable, and visually striking.
+                Adept at working in agile teams and committed to continuous learning. I enjoy developing intuitive user interfaces and architecting robust backends.
               </p>
               <p>
-                Currently finishing my degree in Data Science (3.6 GPA), I blend
-                academic theory with messy, real-world execution.
+                Currently completing my Bachelor of Data Science (CGPA: 3.6) at Alexandria University.
               </p>
               <div className="bg-foreground text-background p-4 md:p-6 brutal-shadow brutal-border mt-6 md:mt-8">
                 <h4 className="font-black text-xl mb-2 text-accent">
