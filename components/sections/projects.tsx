@@ -14,8 +14,8 @@ const projects = [
       "Built a scalable PostgreSQL backend with Prisma ORM and AWS S3.",
       "Utilized Next.js, NestJS (GraphQL), and Python computation workers.",
     ],
-    github: "https://github.com/your-repo/graphora",
-    live: "#",
+    github: "https://github.com/ma-hmuud/graphora",
+    live: "https://graphora-visualizer.vercel.app",
     image: "/projects/graphora.png",
     year: "2026",
     featured: true,
@@ -29,8 +29,8 @@ const projects = [
       "Integrated Next.js with PostgreSQL via Drizzle ORM.",
       "Created dynamic calendar interfaces utilizing FullCalendar and Radix UI.",
     ],
-    github: "https://github.com/your-repo/swiftshift",
-    live: "#",
+    github: "https://github.com/ma-hmuud/swiftshift",
+    live: "https://swiftshift-scheduler.vercel.app/",
     image: "/projects/swiftshift.png",
     year: "2026",
     featured: true,
@@ -49,6 +49,21 @@ const projects = [
     image: "/projects/ma-drive.webp",
     year: "2026",
     featured: true,
+  },
+  {
+    title: "Shafei Vehicle Management",
+    description:
+      "Enterprise vehicle management system with real-time tracking, automated notifications, and comprehensive reporting dashboards.",
+    bullets: [
+      "Architected RESTful APIs with Express.js, PostgreSQL, Redis, and Drizzle ORM.",
+      "Integrated AWS S3 for file storage and SendGrid for transactional emails.",
+      "Collaborated on Next.js frontend, improving page load time by 40%.",
+    ],
+    github: "#",
+    live: "https://shafei.vercel.app/",
+    image: "/projects/shafei.webp",
+    year: "2025",
+    featured: false,
   },
 ];
 
