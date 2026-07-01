@@ -275,7 +275,6 @@ export function Terminal() {
               className="absolute inset-0 opacity-0 cursor-text w-full"
               autoComplete="off"
               spellCheck="false"
-              autoFocus
             />
           </div>
         </form>
