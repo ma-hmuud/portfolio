@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Briefcase, Code2, GraduationCap } from "lucide-react";
+import { Briefcase, Code2, GraduationCap, Download } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const experience = [
   {
@@ -58,10 +59,9 @@ const skillCategories = [
 
 export function About() {
   return (
-    <section id="about" className="py-32 relative bg-muted/20">
+    <section id="about" className="pt-40 pb-24 relative bg-muted/20">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-12 gap-16 items-start">
-          
           {/* Bio Side */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -69,44 +69,70 @@ export function About() {
             viewport={{ once: true }}
             className="lg:col-span-5 lg:sticky lg:top-32"
           >
-            <div className="inline-flex items-center rounded-none-none border border-border/50 bg-background/50 px-3 py-1.5 text-sm font-medium text-muted-foreground mb-6">
-              About Me
+            <div className="inline-flex items-center rounded-none border border-border/50 bg-background/50 px-3 py-1.5 text-sm font-medium text-muted-foreground mb-6">
+              Hi, I&#39;m
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-8">
-              Passionate about <br className="hidden sm:block" />
-              <span className="bg-gradient-to-r from-accent to-blue-500 bg-clip-text text-transparent">Solving Problems.</span>
+            <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-4">
+              Mahmoud Ahmed.
+            </h1>
+            <h2 className="text-2xl md:text-3xl font-medium tracking-tight mb-8 text-muted-foreground">
+              Passionate about{" "}
+              <span className="bg-linear-to-r from-accent to-blue-500 bg-clip-text text-transparent font-bold">
+                Solving Problems.
+              </span>
             </h2>
-            
+
             <div className="space-y-5 text-lg text-muted-foreground leading-relaxed">
               <p>
-                Adept at working in agile teams and committed to continuous learning. I enjoy developing intuitive user interfaces and architecting robust backends.
+                Results-driven Junior Full Stack Developer with 1+ year of
+                experience in building scalable web applications. Proficient in
+                Next.js, Node.js, and TypeScript.
               </p>
               <p>
-                Currently completing my Bachelor of Data Science (CGPA: 3.6) at Alexandria University.
+                Currently completing my Bachelor of Data Science (CGPA: 3.6) at
+                Alexandria University.
               </p>
-              
-              <div className="glass-panel p-6 rounded-none-none mt-8">
+
+              <div className="mt-8">
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="w-full sm:w-auto rounded-none h-14 px-8 text-base border-border/50 hover:bg-muted/50 hover:text-primary transition-all hover:-translate-y-1"
+                >
+                  <a href="/Mahmoud_Ahmed_Resume.pdf" download>
+                    <Download className="mr-2 h-5 w-5" />
+                    Download Resume
+                  </a>
+                </Button>
+              </div>
+
+              <div className="glass-panel p-6 rounded-none mt-12">
                 <h4 className="text-sm font-semibold text-accent uppercase tracking-wider mb-2">
                   Volunteer Work
                 </h4>
                 <p className="font-medium text-foreground mb-1">
-                  {volunteer.role} <span className="text-muted-foreground">@ {volunteer.organization}</span>
+                  {volunteer.role}{" "}
+                  <span className="text-muted-foreground">
+                    @ {volunteer.organization}
+                  </span>
                 </p>
-                <p className="text-sm opacity-80">
-                  {volunteer.description}
-                </p>
+                <p className="text-sm opacity-80">{volunteer.description}</p>
               </div>
             </div>
           </motion.div>
 
           {/* Timeline & Skills Side */}
           <div className="lg:col-span-7 space-y-16">
-            
             {/* Experience */}
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
               <div className="flex items-center gap-4 mb-8">
-                <div className="p-2.5 rounded-none-none bg-accent/10 text-accent">
+                <div className="p-2.5 rounded-none bg-accent/10 text-accent">
                   <Briefcase size={24} />
                 </div>
                 <h3 className="text-2xl font-bold">Experience</h3>
@@ -114,13 +140,18 @@ export function About() {
 
               <div className="space-y-6">
                 {experience.map((exp, i) => (
-                  <div key={i} className="glass-panel p-6 sm:p-8 rounded-none-none hover:bg-muted/30 transition-colors">
+                  <div
+                    key={i}
+                    className="glass-panel p-6 sm:p-8 rounded-none hover:bg-muted/30 transition-colors"
+                  >
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 gap-2">
                       <div>
                         <h4 className="text-lg font-bold">{exp.role}</h4>
-                        <p className="text-accent text-sm font-medium">{exp.company}</p>
+                        <p className="text-accent text-sm font-medium">
+                          {exp.company}
+                        </p>
                       </div>
-                      <span className="text-xs font-medium px-2.5 py-1 bg-foreground/5 text-foreground rounded-none-none border border-border/50">
+                      <span className="text-xs font-medium px-2.5 py-1 bg-foreground/5 text-foreground rounded-none border border-border/50">
                         {exp.type}
                       </span>
                     </div>
@@ -136,19 +167,25 @@ export function About() {
             </motion.div>
 
             {/* Education */}
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
               <div className="flex items-center gap-4 mb-8">
-                <div className="p-2.5 rounded-none-none bg-accent/10 text-accent">
+                <div className="p-2.5 rounded-none bg-accent/10 text-accent">
                   <GraduationCap size={24} />
                 </div>
                 <h3 className="text-2xl font-bold">Education</h3>
               </div>
 
-              <div className="glass-panel p-8 rounded-none-none">
+              <div className="glass-panel p-8 rounded-none">
                 <h4 className="text-xl font-bold mb-1">{education.degree}</h4>
-                <p className="text-accent text-sm font-medium mb-4">{education.institution}</p>
+                <p className="text-accent text-sm font-medium mb-4">
+                  {education.institution}
+                </p>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-3 text-sm">
-                  <span className="bg-background px-3 py-1.5 rounded-none-none border border-border/50 font-medium">
+                  <span className="bg-background px-3 py-1.5 rounded-none border border-border/50 font-medium">
                     {education.details}
                   </span>
                   <span className="text-muted-foreground font-medium">
@@ -159,9 +196,13 @@ export function About() {
             </motion.div>
 
             {/* Skills */}
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
               <div className="flex items-center gap-4 mb-8">
-                <div className="p-2.5 rounded-none-none bg-accent/10 text-accent">
+                <div className="p-2.5 rounded-none bg-accent/10 text-accent">
                   <Code2 size={24} />
                 </div>
                 <h3 className="text-2xl font-bold">Skills & Technologies</h3>
@@ -177,7 +218,7 @@ export function About() {
                       {category.skills.map((skill) => (
                         <span
                           key={skill}
-                          className="text-sm font-medium bg-background px-3 py-1.5 rounded-none-none border border-border/50 hover:border-accent/50 hover:text-accent transition-colors cursor-default shadow-sm"
+                          className="text-sm font-medium bg-background px-3 py-1.5 rounded-none border border-border/50 hover:border-accent/50 hover:text-accent transition-colors cursor-default shadow-sm"
                         >
                           {skill}
                         </span>
@@ -187,7 +228,6 @@ export function About() {
                 ))}
               </div>
             </motion.div>
-
           </div>
         </div>
       </div>

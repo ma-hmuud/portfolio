@@ -22,7 +22,8 @@ const projects = [
   },
   {
     title: "Swift Shift",
-    description: "Employee scheduling platform facilitating role-based workflows and shift requests.",
+    description:
+      "Employee scheduling platform facilitating role-based workflows and shift requests.",
     bullets: [
       "Built end-to-end type-safe APIs using tRPC and TanStack Query.",
       "Integrated Next.js with PostgreSQL via Drizzle ORM.",
@@ -36,7 +37,8 @@ const projects = [
   },
   {
     title: "MA Drive",
-    description: "Full-stack Google Drive clone with user authentication and hierarchical folders.",
+    description:
+      "Full-stack Google Drive clone with user authentication and hierarchical folders.",
     bullets: [
       "Implemented secure authentication using Clerk OAuth2.",
       "Executed database operations with Drizzle ORM.",
@@ -50,7 +52,8 @@ const projects = [
   },
   {
     title: "Shafei Vehicle Management",
-    description: "Enterprise vehicle management system with real-time tracking, automated notifications, and comprehensive reporting dashboards.",
+    description:
+      "Enterprise vehicle management system with real-time tracking, automated notifications, and comprehensive reporting dashboards.",
     bullets: [
       "Architected RESTful APIs with Express.js, PostgreSQL, Redis, and Drizzle ORM.",
       "Integrated AWS S3 for file storage and SendGrid for transactional emails.",
@@ -75,10 +78,14 @@ export function Projects() {
           className="mb-16 md:mb-24"
         >
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            Selected <span className="bg-gradient-to-r from-accent to-blue-500 bg-clip-text text-transparent">Work</span>
+            Selected{" "}
+            <span className="bg-linear-to-r from-accent to-blue-500 bg-clip-text text-transparent">
+              Work
+            </span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl">
-            A curated list of my latest engineered solutions, built with modern web technologies.
+            A curated list of my latest engineered solutions, built with modern
+            web technologies.
           </p>
         </motion.div>
 
@@ -116,7 +123,10 @@ export function Projects() {
 
                   <ul className="space-y-3 mb-8">
                     {project.bullets.map((bullet, i) => (
-                      <li key={i} className="flex items-start text-sm md:text-base text-muted-foreground">
+                      <li
+                        key={i}
+                        className="flex items-start text-sm md:text-base text-muted-foreground"
+                      >
                         <span className="text-accent mr-3 mt-1">•</span>
                         {bullet}
                       </li>
@@ -125,15 +135,30 @@ export function Projects() {
 
                   <div className="flex flex-wrap gap-4 mt-auto pt-4 border-t border-border/50">
                     {project.live !== "#" && (
-                      <Button asChild className="rounded-none-none px-6 shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5">
-                        <a href={project.live} target="_blank" rel="noopener noreferrer">
+                      <Button
+                        asChild
+                        className="rounded-none-none px-6 shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5"
+                      >
+                        <a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           Visit Site <ArrowUpRight className="ml-2 h-4 w-4" />
                         </a>
                       </Button>
                     )}
                     {project.github !== "#" && (
-                      <Button asChild variant="outline" className="rounded-none-none px-6 bg-transparent border-border hover:bg-muted transition-all hover:-translate-y-0.5">
-                        <a href={project.github} target="_blank" rel="noopener noreferrer">
+                      <Button
+                        asChild
+                        variant="outline"
+                        className="rounded-none-none px-6 bg-transparent border-border hover:bg-muted transition-all hover:-translate-y-0.5"
+                      >
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <Github className="mr-2 h-4 w-4" /> Source
                         </a>
                       </Button>
@@ -142,7 +167,7 @@ export function Projects() {
                 </div>
 
                 {/* Image Side */}
-                <div className="w-full lg:w-[50%] relative aspect-[16/10] lg:aspect-auto overflow-hidden order-1 lg:order-2 bg-muted/30">
+                <div className="w-full lg:w-[50%] relative aspect-16/10 lg:aspect-auto overflow-hidden order-1 lg:order-2 bg-muted/30">
                   <Image
                     src={project.image}
                     alt={`${project.title} preview`}
