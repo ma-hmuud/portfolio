@@ -154,11 +154,11 @@ export async function GithubActivity() {
                                 </TooltipTrigger>
                                 <TooltipContent className="rounded-none border-border">
                                   <p>
-                                    <span className="font-bold text-foreground">
+                                    <span className="font-bold text-accent-foreground">
                                       {day.contributionCount}
                                     </span>{" "}
                                     contributions on{" "}
-                                    <span className="text-muted-foreground">
+                                    <span className="text-muted-primary">
                                       {format(
                                         new Date(day.date),
                                         "MMM d, yyyy",
