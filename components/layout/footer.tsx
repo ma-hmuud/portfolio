@@ -16,7 +16,7 @@ export function Footer() {
             <Github size={20} />
           </a>
           <a
-            href="https://www.linkedin.com/in/mahmoud-ahmed-3b8584285"
+            href="https://www.linkedin.com/in/mahmuud"
             target="_blank"
             rel="noopener noreferrer"
             className="p-3 bg-muted rounded-none-none text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors"
@@ -30,7 +30,7 @@ export function Footer() {
             <Mail size={20} />
           </a>
         </div>
-        
+
         <p className="text-muted-foreground text-sm font-medium">
           &copy; {currentYear} Mahmoud Ahmed. All rights reserved.
         </p>
