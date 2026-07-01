@@ -1,6 +1,7 @@
 import { Space_Grotesk, Space_Mono, Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
+import { Metadata } from "next";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-heading",
@@ -51,7 +52,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className={`${spaceGrotesk.variable} ${inter.variable} ${spaceMono.variable} antialiased selection:bg-accent selection:text-accent-foreground`}>
+      <body
+        className={`${spaceGrotesk.variable} ${inter.variable} ${spaceMono.variable} antialiased selection:bg-accent selection:text-accent-foreground`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
