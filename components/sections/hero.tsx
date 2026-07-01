@@ -27,12 +27,17 @@ export function Hero() {
             </div>
 
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight leading-[1.1] mb-6">
-              Hi, I'm <br />
-              <span className="bg-gradient-to-r from-accent to-blue-500 bg-clip-text text-transparent">Mahmoud Ahmed.</span>
+              Hi, I&#39;m <br />
+              <span className="bg-linear-to-r from-accent to-blue-500 bg-clip-text text-transparent">
+                Mahmoud Ahmed.
+              </span>
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 max-w-xl">
-              Results-driven Junior Full Stack Developer with 1+ year of experience in building scalable web applications. Proficient in Next.js, Node.js, and TypeScript, focusing on optimized performance and intuitive user interfaces.
+              Results-driven Junior Full Stack Developer with 1+ year of
+              experience in building scalable web applications. Proficient in
+              Next.js, Node.js, and TypeScript, focusing on optimized
+              performance and intuitive user interfaces.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -66,7 +71,7 @@ export function Hero() {
             transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
             className="lg:col-span-6 relative mt-12 lg:mt-0 group"
           >
-            <div className="absolute -inset-1 bg-gradient-to-r from-accent to-blue-500 rounded-none blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+            <div className="absolute -inset-1 bg-linear-to-r from-accent to-blue-500 rounded-none blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
             <div className="relative">
               <Terminal />
             </div>

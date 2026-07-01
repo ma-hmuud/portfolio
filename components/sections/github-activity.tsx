@@ -47,6 +47,7 @@ async function getContributions(userName: string) {
     const json = await res.json();
     return json?.data?.user;
   } catch (e) {
+    console.error("Error fetching GitHub contributions:", e);
     return null;
   }
 }
@@ -69,7 +70,10 @@ export async function GithubActivity() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="mb-12 text-center max-w-2xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            Recent <span className="bg-gradient-to-r from-accent to-blue-500 bg-clip-text text-transparent">Activity</span>
+            Recent{" "}
+            <span className="bg-linear-to-r from-accent to-blue-500 bg-clip-text text-transparent">
+              Activity
+            </span>
           </h2>
           <p className="text-muted-foreground">
             My open source contributions over the last year
@@ -79,15 +83,33 @@ export async function GithubActivity() {
         <div className="glass-panel p-6 sm:p-10 rounded-none overflow-x-auto shadow-xl flex justify-center">
           {!data ? (
             <div className="text-center p-12 text-muted-foreground">
-              <p className="font-bold text-lg mb-2">GitHub Integration Pending</p>
-              <p>Please add <code className="text-accent bg-accent/10 px-2 py-1 rounded-none font-mono">GITHUB_TOKEN</code> to your <code className="text-accent bg-accent/10 px-2 py-1 rounded-none font-mono">.env.local</code> file to view the interactive contribution graph.</p>
+              <p className="font-bold text-lg mb-2">
+                GitHub Integration Pending
+              </p>
+              <p>
+                Please add{" "}
+                <code className="text-accent bg-accent/10 px-2 py-1 rounded-none font-mono">
+                  GITHUB_TOKEN
+                </code>{" "}
+                to your{" "}
+                <code className="text-accent bg-accent/10 px-2 py-1 rounded-none font-mono">
+                  .env.local
+                </code>{" "}
+                file to view the interactive contribution graph.
+              </p>
             </div>
           ) : (
             <div className="flex w-full max-w-5xl flex-col gap-3 justify-center overflow-x-auto">
               <TooltipProvider delayDuration={0}>
                 <div className="flex gap-1">
-                  {data.contributionsCollection.contributionCalendar.weeks
-                    .map((week: any) => {
+                  {data.contributionsCollection.contributionCalendar.weeks.map(
+                    (week: {
+                      firstDay: string;
+                      contributionDays: {
+                        date: string;
+                        contributionCount: number;
+                      }[];
+                    }) => {
                       const month = format(new Date(week.firstDay), "MMM");
 
                       function renderMonth() {
@@ -95,7 +117,11 @@ export async function GithubActivity() {
                           return <p className="mb-1 h-4 text-xs opacity-0" />;
                         }
                         monthsSet.add(month);
-                        return <p className="mb-1 h-4 text-xs text-muted-foreground">{month}</p>;
+                        return (
+                          <p className="mb-1 h-4 text-xs text-muted-foreground">
+                            {month}
+                          </p>
+                        );
                       }
 
                       return (
@@ -105,45 +131,64 @@ export async function GithubActivity() {
                         >
                           {renderMonth()}
 
-                          {week.contributionDays.map((day: any) => (
-                            <Tooltip
-                              key={`${day.contributionCount}-${new Date(day.date).getTime()}`}
-                            >
-                              <TooltipTrigger asChild>
-                                <div
-                                  className="hover:scale-150 hover:z-10 transition-transform cursor-pointer"
-                                  style={{
-                                    backgroundColor: getHeatColor(
-                                      day.contributionCount,
-                                    ),
-                                    width: "12px",
-                                    height: "12px",
-                                    borderRadius: "0px",
-                                  }}
-                                />
-                              </TooltipTrigger>
-                              <TooltipContent className="rounded-none border-border">
-                                <p>
-                                  <span className="font-bold text-foreground">{day.contributionCount}</span> contributions on{" "}
-                                  <span className="text-muted-foreground">{format(new Date(day.date), "MMM d, yyyy")}</span>
-                                </p>
-                              </TooltipContent>
-                            </Tooltip>
-                          ))}
+                          {week.contributionDays.map(
+                            (day: {
+                              date: string;
+                              contributionCount: number;
+                            }) => (
+                              <Tooltip
+                                key={`${day.contributionCount}-${new Date(day.date).getTime()}`}
+                              >
+                                <TooltipTrigger asChild>
+                                  <div
+                                    className="hover:scale-150 hover:z-10 transition-transform cursor-pointer"
+                                    style={{
+                                      backgroundColor: getHeatColor(
+                                        day.contributionCount,
+                                      ),
+                                      width: "12px",
+                                      height: "12px",
+                                      borderRadius: "0px",
+                                    }}
+                                  />
+                                </TooltipTrigger>
+                                <TooltipContent className="rounded-none border-border">
+                                  <p>
+                                    <span className="font-bold text-foreground">
+                                      {day.contributionCount}
+                                    </span>{" "}
+                                    contributions on{" "}
+                                    <span className="text-muted-foreground">
+                                      {format(
+                                        new Date(day.date),
+                                        "MMM d, yyyy",
+                                      )}
+                                    </span>
+                                  </p>
+                                </TooltipContent>
+                              </Tooltip>
+                            ),
+                          )}
                         </div>
                       );
-                    })}
+                    },
+                  )}
                 </div>
               </TooltipProvider>
 
               <div className="flex w-full flex-col items-center justify-between gap-4 sm:flex-row mt-4">
                 <p className="text-muted-foreground text-sm font-medium">
-                  {data.contributionsCollection.contributionCalendar.totalContributions}{" "}
+                  {
+                    data.contributionsCollection.contributionCalendar
+                      .totalContributions
+                  }{" "}
                   contributions in the last year
                 </p>
 
                 <div className="flex items-center gap-2">
-                  <p className="text-muted-foreground text-xs uppercase tracking-wider">Less</p>
+                  <p className="text-muted-foreground text-xs uppercase tracking-wider">
+                    Less
+                  </p>
                   {Array.from({ length: 5 }).map((_, index) => (
                     <div
                       key={index}
@@ -151,7 +196,9 @@ export async function GithubActivity() {
                       style={{ backgroundColor: `var(--heat-${index})` }}
                     />
                   ))}
-                  <p className="text-muted-foreground text-xs uppercase tracking-wider">More</p>
+                  <p className="text-muted-foreground text-xs uppercase tracking-wider">
+                    More
+                  </p>
                 </div>
               </div>
             </div>

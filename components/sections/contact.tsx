@@ -20,13 +20,17 @@ export function Contact() {
           </div>
 
           <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-6">
-            Let's <span className="bg-gradient-to-r from-accent to-blue-500 bg-clip-text text-transparent">Connect</span>
+            Let&#39;s{" "}
+            <span className="bg-linear-to-r from-accent to-blue-500 bg-clip-text text-transparent">
+              Connect
+            </span>
           </h2>
-          
+
           <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
-            I'm currently looking for new opportunities. Whether you have a question or just want to say hi, my inbox is always open.
+            I&#39;m currently looking for new opportunities. Whether you have a
+            question or just want to say hi, my inbox is always open.
           </p>
-          
+
           <Button
             asChild
             size="lg"
