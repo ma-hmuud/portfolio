@@ -1,68 +1,161 @@
-"use client";
+import { format } from "date-fns";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
-import { motion } from "motion/react";
-import { useTheme } from "next-themes";
-import { useState, useEffect } from "react";
+const USER_CONTRIBUTION_QUERY = `
+  query($userName:String!) {
+    user(login: $userName){
+      contributionsCollection {
+        contributionCalendar {
+          totalContributions
+          weeks {
+            firstDay
+            contributionDays {
+              date
+              contributionCount
+              color
+              weekday
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 
-export function GithubActivity() {
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+async function getContributions(userName: string) {
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) return null;
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  try {
+    const res = await fetch("https://api.github.com/graphql", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`,
+      },
+      body: JSON.stringify({
+        query: USER_CONTRIBUTION_QUERY,
+        variables: { userName },
+      }),
+      next: { revalidate: 3600 },
+    });
+    const json = await res.json();
+    return json?.data?.user;
+  } catch (e) {
+    return null;
+  }
+}
 
-  const isDark = mounted && resolvedTheme === "dark";
+export async function GithubActivity() {
+  const data = await getContributions("ma-hmuud");
+  const monthsSet = new Set<string>();
+
+  function getHeatColor(contributionCount: number) {
+    if (contributionCount === 0) return "var(--heat-0)";
+    if (contributionCount > 25) return "var(--heat-4)";
+    if (contributionCount > 15) return "var(--heat-3)";
+    if (contributionCount > 7) return "var(--heat-2)";
+    if (contributionCount > 0) return "var(--heat-1)";
+    return `var(--heat-${contributionCount})`;
+  }
 
   return (
-    <section id="github" className="py-32 relative bg-background border-t-4 border-foreground">
+    <section id="github" className="py-24 relative bg-background">
       <div className="max-w-7xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-16 md:mb-24"
-        >
-          <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6 mb-4 md:mb-6">
-            <h2 className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter">
-              Recent <span className="text-accent">Activity</span>
-            </h2>
-            <div className="h-2 flex-1 bg-foreground hidden md:block" />
-          </div>
-          <p className="font-mono text-base md:text-xl text-muted-foreground uppercase tracking-widest max-w-xl bg-muted p-3 md:p-4 brutal-border">
+        <div className="mb-12 text-center max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            Recent <span className="bg-gradient-to-r from-accent to-blue-500 bg-clip-text text-transparent">Activity</span>
+          </h2>
+          <p className="text-muted-foreground">
             My open source contributions over the last year
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="brutal-card p-6 sm:p-10 bg-card brutal-shadow overflow-x-auto"
-        >
-          <div className="min-w-[800px] flex justify-center">
-            {mounted && (
-              <img 
-                src="https://ghchart.rshah.org/40c463/ma-hmuud" 
-                alt="Mahmoud Ahmed's Github Chart" 
-                className="w-full h-auto opacity-90 hover:opacity-100 transition-opacity"
-                style={{
-                  filter: isDark ? "invert(1) hue-rotate(180deg) brightness(1.2)" : "none",
-                }}
-              />
-            )}
-          </div>
-        </motion.div>
-        
-        <div className="mt-12 text-center">
-          <a 
-            href="https://github.com/ma-hmuud" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-flex items-center font-mono font-bold text-lg border-b-4 border-foreground hover:text-accent hover:border-accent transition-colors pb-1"
-          >
-            VIEW FULL PROFILE ON GITHUB
-          </a>
+        <div className="glass-panel p-6 sm:p-10 rounded-none overflow-x-auto shadow-xl flex justify-center">
+          {!data ? (
+            <div className="text-center p-12 text-muted-foreground">
+              <p className="font-bold text-lg mb-2">GitHub Integration Pending</p>
+              <p>Please add <code className="text-accent bg-accent/10 px-2 py-1 rounded-none font-mono">GITHUB_TOKEN</code> to your <code className="text-accent bg-accent/10 px-2 py-1 rounded-none font-mono">.env.local</code> file to view the interactive contribution graph.</p>
+            </div>
+          ) : (
+            <div className="flex w-full max-w-5xl flex-col gap-3 justify-center overflow-x-auto">
+              <TooltipProvider delayDuration={0}>
+                <div className="flex gap-1">
+                  {data.contributionsCollection.contributionCalendar.weeks
+                    .map((week: any) => {
+                      const month = format(new Date(week.firstDay), "MMM");
+
+                      function renderMonth() {
+                        if (monthsSet.has(month)) {
+                          return <p className="mb-1 h-4 text-xs opacity-0" />;
+                        }
+                        monthsSet.add(month);
+                        return <p className="mb-1 h-4 text-xs text-muted-foreground">{month}</p>;
+                      }
+
+                      return (
+                        <div
+                          key={new Date(week.firstDay).getTime()}
+                          className="flex w-3 flex-col gap-1"
+                        >
+                          {renderMonth()}
+
+                          {week.contributionDays.map((day: any) => (
+                            <Tooltip
+                              key={`${day.contributionCount}-${new Date(day.date).getTime()}`}
+                            >
+                              <TooltipTrigger asChild>
+                                <div
+                                  className="hover:scale-150 hover:z-10 transition-transform cursor-pointer"
+                                  style={{
+                                    backgroundColor: getHeatColor(
+                                      day.contributionCount,
+                                    ),
+                                    width: "12px",
+                                    height: "12px",
+                                    borderRadius: "0px",
+                                  }}
+                                />
+                              </TooltipTrigger>
+                              <TooltipContent className="rounded-none border-border">
+                                <p>
+                                  <span className="font-bold text-foreground">{day.contributionCount}</span> contributions on{" "}
+                                  <span className="text-muted-foreground">{format(new Date(day.date), "MMM d, yyyy")}</span>
+                                </p>
+                              </TooltipContent>
+                            </Tooltip>
+                          ))}
+                        </div>
+                      );
+                    })}
+                </div>
+              </TooltipProvider>
+
+              <div className="flex w-full flex-col items-center justify-between gap-4 sm:flex-row mt-4">
+                <p className="text-muted-foreground text-sm font-medium">
+                  {data.contributionsCollection.contributionCalendar.totalContributions}{" "}
+                  contributions in the last year
+                </p>
+
+                <div className="flex items-center gap-2">
+                  <p className="text-muted-foreground text-xs uppercase tracking-wider">Less</p>
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <div
+                      key={index}
+                      className="w-3 h-3 rounded-none"
+                      style={{ backgroundColor: `var(--heat-${index})` }}
+                    />
+                  ))}
+                  <p className="text-muted-foreground text-xs uppercase tracking-wider">More</p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>

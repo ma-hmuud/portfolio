@@ -58,52 +58,42 @@ const skillCategories = [
 
 export function About() {
   return (
-    <section
-      id="about"
-      className="py-32 relative bg-background border-t-4 border-foreground overflow-hidden"
-    >
-      {/* Background Decor */}
-      <div
-        className="absolute top-0 right-0 w-full h-full opacity-5 pointer-events-none"
-        style={{
-          backgroundImage:
-            "radial-gradient(var(--foreground) 2px, transparent 2px)",
-          backgroundSize: "40px 40px",
-        }}
-      />
-
+    <section id="about" className="py-32 relative bg-muted/20">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-24 items-start">
+        <div className="grid lg:grid-cols-12 gap-16 items-start">
+          
           {/* Bio Side */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="lg:sticky lg:top-32"
+            className="lg:col-span-5 lg:sticky lg:top-32"
           >
-            <div className="inline-block bg-accent text-accent-foreground px-3 py-1.5 md:px-4 md:py-2 font-mono font-bold uppercase text-xs md:text-sm mb-6 md:mb-8 brutal-border brutal-shadow">
-              SYSTEM_INFO // ABOUT_ME
+            <div className="inline-flex items-center rounded-none-none border border-border/50 bg-background/50 px-3 py-1.5 text-sm font-medium text-muted-foreground mb-6">
+              About Me
             </div>
 
-            <h2 className="text-4xl sm:text-5xl md:text-7xl font-black uppercase mb-8 md:mb-10 leading-[1] md:leading-[0.9]">
-              PASSIONATE ABOUT <br className="hidden sm:block" /> <span className="text-stroke">SOLVING</span> PROBLEMS.
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-8">
+              Passionate about <br className="hidden sm:block" />
+              <span className="bg-gradient-to-r from-accent to-blue-500 bg-clip-text text-transparent">Solving Problems.</span>
             </h2>
             
-            <div className="space-y-4 md:space-y-6 font-mono text-base md:text-lg text-muted-foreground leading-relaxed border-l-4 border-foreground pl-4 md:pl-6">
+            <div className="space-y-5 text-lg text-muted-foreground leading-relaxed">
               <p>
                 Adept at working in agile teams and committed to continuous learning. I enjoy developing intuitive user interfaces and architecting robust backends.
               </p>
               <p>
                 Currently completing my Bachelor of Data Science (CGPA: 3.6) at Alexandria University.
               </p>
-              <div className="bg-foreground text-background p-4 md:p-6 brutal-shadow brutal-border mt-6 md:mt-8">
-                <h4 className="font-black text-xl mb-2 text-accent">
-                  VOLUNTEER COMMAND
+              
+              <div className="glass-panel p-6 rounded-none-none mt-8">
+                <h4 className="text-sm font-semibold text-accent uppercase tracking-wider mb-2">
+                  Volunteer Work
                 </h4>
-                <p className="font-bold">
-                  {volunteer.role} @ {volunteer.organization}
+                <p className="font-medium text-foreground mb-1">
+                  {volunteer.role} <span className="text-muted-foreground">@ {volunteer.organization}</span>
                 </p>
-                <p className="text-sm mt-2 opacity-80">
+                <p className="text-sm opacity-80">
                   {volunteer.description}
                 </p>
               </div>
@@ -111,45 +101,33 @@ export function About() {
           </motion.div>
 
           {/* Timeline & Skills Side */}
-          <div className="space-y-16 md:space-y-24 mt-12 lg:mt-0">
+          <div className="lg:col-span-7 space-y-16">
+            
             {/* Experience */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <div className="flex items-center gap-3 md:gap-4 mb-8 md:mb-12">
-                <div className="p-2 md:p-3 bg-foreground text-background brutal-border">
-                  <Briefcase className="w-6 h-6 md:w-8 md:h-8" />
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <div className="flex items-center gap-4 mb-8">
+                <div className="p-2.5 rounded-none-none bg-accent/10 text-accent">
+                  <Briefcase size={24} />
                 </div>
-                <h3 className="text-3xl md:text-4xl font-black uppercase tracking-tighter">
-                  Experience
-                </h3>
+                <h3 className="text-2xl font-bold">Experience</h3>
               </div>
 
-              <div className="space-y-6 md:space-y-8">
+              <div className="space-y-6">
                 {experience.map((exp, i) => (
-                  <div
-                    key={i}
-                    className="brutal-card p-5 sm:p-6 md:p-8 bg-card hover:bg-muted transition-colors brutal-shadow"
-                  >
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 md:mb-6 gap-3 md:gap-4">
+                  <div key={i} className="glass-panel p-6 sm:p-8 rounded-none-none hover:bg-muted/30 transition-colors">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 gap-2">
                       <div>
-                        <h4 className="font-black text-xl md:text-2xl uppercase">
-                          {exp.role}
-                        </h4>
-                        <p className="font-mono font-bold text-accent text-sm md:text-base">
-                          {exp.company}
-                        </p>
+                        <h4 className="text-lg font-bold">{exp.role}</h4>
+                        <p className="text-accent text-sm font-medium">{exp.company}</p>
                       </div>
-                      <div className="font-mono font-bold bg-foreground text-background px-2 py-1 md:px-3 md:py-1 brutal-border text-xs md:text-sm">
+                      <span className="text-xs font-medium px-2.5 py-1 bg-foreground/5 text-foreground rounded-none-none border border-border/50">
                         {exp.type}
-                      </div>
+                      </span>
                     </div>
-                    <div className="font-mono text-xs md:text-sm text-foreground mb-3 md:mb-4 border-b-2 border-foreground/20 pb-1 md:pb-2 inline-block">
+                    <div className="text-sm text-muted-foreground mb-4 font-medium">
                       {exp.period}
                     </div>
-                    <p className="font-mono text-sm md:text-base text-muted-foreground leading-relaxed">
+                    <p className="text-sm md:text-base text-foreground/80 leading-relaxed">
                       {exp.description}
                     </p>
                   </div>
@@ -158,32 +136,22 @@ export function About() {
             </motion.div>
 
             {/* Education */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <div className="flex items-center gap-4 mb-12">
-                <div className="p-3 bg-foreground text-background brutal-border">
-                  <GraduationCap size={32} />
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <div className="flex items-center gap-4 mb-8">
+                <div className="p-2.5 rounded-none-none bg-accent/10 text-accent">
+                  <GraduationCap size={24} />
                 </div>
-                <h3 className="text-4xl font-black uppercase tracking-tighter">
-                  Education
-                </h3>
+                <h3 className="text-2xl font-bold">Education</h3>
               </div>
 
-              <div className="brutal-card p-8 bg-card brutal-shadow">
-                <h4 className="font-black text-2xl uppercase">
-                  {education.degree}
-                </h4>
-                <p className="font-mono font-bold text-accent mt-2">
-                  {education.institution}
-                </p>
-                <div className="flex flex-col gap-2 mt-4 font-mono text-sm">
-                  <span className="bg-muted inline-block px-3 py-1 brutal-border w-fit">
+              <div className="glass-panel p-8 rounded-none-none">
+                <h4 className="text-xl font-bold mb-1">{education.degree}</h4>
+                <p className="text-accent text-sm font-medium mb-4">{education.institution}</p>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3 text-sm">
+                  <span className="bg-background px-3 py-1.5 rounded-none-none border border-border/50 font-medium">
                     {education.details}
                   </span>
-                  <span className="text-muted-foreground font-bold">
+                  <span className="text-muted-foreground font-medium">
                     {education.period}
                   </span>
                 </div>
@@ -191,34 +159,25 @@ export function About() {
             </motion.div>
 
             {/* Skills */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <div className="flex items-center gap-4 mb-12">
-                <div className="p-3 bg-foreground text-background brutal-border">
-                  <Code2 size={32} />
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <div className="flex items-center gap-4 mb-8">
+                <div className="p-2.5 rounded-none-none bg-accent/10 text-accent">
+                  <Code2 size={24} />
                 </div>
-                <h3 className="text-4xl font-black uppercase tracking-tighter">
-                  Arsenal
-                </h3>
+                <h3 className="text-2xl font-bold">Skills & Technologies</h3>
               </div>
 
-              <div className="space-y-8">
+              <div className="grid sm:grid-cols-2 gap-8">
                 {skillCategories.map((category) => (
-                  <div
-                    key={category.name}
-                    className="border-l-4 border-accent pl-4"
-                  >
-                    <h4 className="font-black text-xl uppercase mb-4">
+                  <div key={category.name}>
+                    <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
                       {category.name}
                     </h4>
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-2.5">
                       {category.skills.map((skill) => (
                         <span
                           key={skill}
-                          className="font-mono font-bold text-sm bg-background text-foreground px-3 py-1.5 brutal-border brutal-shadow hover:bg-accent hover:text-accent-foreground transition-none cursor-default"
+                          className="text-sm font-medium bg-background px-3 py-1.5 rounded-none-none border border-border/50 hover:border-accent/50 hover:text-accent transition-colors cursor-default shadow-sm"
                         >
                           {skill}
                         </span>
@@ -228,6 +187,7 @@ export function About() {
                 ))}
               </div>
             </motion.div>
+
           </div>
         </div>
       </div>

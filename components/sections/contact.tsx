@@ -1,93 +1,42 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Github, Linkedin, Mail, Phone } from "lucide-react";
+import { ArrowUpRight, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Contact() {
   return (
-    <section
-      id="contact"
-      className="py-32 relative bg-accent text-accent-foreground border-t-4 border-foreground overflow-hidden"
-    >
-      {/* Background Decor */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+CjxwYXRoIGQ9Ik0wIDBoNDB2NDBIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMTBoNDBNMTAgMHY0ME0wIDIwaDQwTTIwIDB2NDBNMCAzMGg0ME0zMCAwdjQwIiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMSIvPgo8L3N2Zz4=')]" />
-
-      <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
+    <section id="contact" className="py-32 relative bg-muted/20">
+      <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="glass-panel p-10 md:p-16 rounded-none-none"
         >
-          <div className="inline-block bg-foreground text-background px-4 py-2 font-mono font-bold uppercase text-sm mb-12 brutal-border">
-            INITIATE_CONTACT.EXE
+          <div className="inline-flex items-center justify-center p-4 bg-accent/10 text-accent rounded-none-none mb-8">
+            <Mail size={32} />
           </div>
 
-          <h2 className="text-4xl sm:text-6xl md:text-8xl font-black mb-8 md:mb-12 uppercase tracking-tighter leading-none md:leading-[0.9]">
-            READY TO BUILD SOMETHING <br />
-            <span
-              className="text-background"
-              style={{ WebkitTextStroke: "2px var(--foreground)" }}
-            >
-              EXTRAORDINARY?
-            </span>
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-6">
+            Let's <span className="bg-gradient-to-r from-accent to-blue-500 bg-clip-text text-transparent">Connect</span>
           </h2>
-
-          <p className="font-mono text-base sm:text-xl md:text-2xl font-bold mb-10 md:mb-16 max-w-3xl mx-auto bg-background text-foreground p-4 md:p-6 brutal-border brutal-shadow">
-            I&apos;m currently available for freelance work and full-time
-            opportunities. Let&apos;s discuss how I can help your team succeed.
+          
+          <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
+            I'm currently looking for new opportunities. Whether you have a question or just want to say hi, my inbox is always open.
           </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-8 mb-16 md:mb-24 w-full px-4 sm:px-0">
-            <Button
-              asChild
-              size="lg"
-              className="w-full sm:w-auto rounded-none h-14 md:h-16 px-6 md:px-8 text-lg md:text-xl brutal-border brutal-shadow bg-foreground text-background hover:bg-background hover:text-foreground transition-none"
-            >
-              <a href="mailto:mahmoud.ahmed.25.9.24@gmail.com">
-                <Mail
-                  className="mr-2 md:mr-3 h-5 w-5 md:h-6 md:w-6"
-                  strokeWidth={3}
-                />
-                EMAIL ME
-              </a>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="w-full sm:w-auto rounded-none h-14 md:h-16 px-6 md:px-8 text-lg md:text-xl brutal-border brutal-shadow bg-background text-foreground hover:bg-foreground hover:text-background transition-none"
-            >
-              <a href="tel:+201096389518">
-                <Phone
-                  className="mr-2 md:mr-3 h-5 w-5 md:h-6 md:w-6"
-                  strokeWidth={3}
-                />
-                +20 109 638 9518
-              </a>
-            </Button>
-          </div>
-
-          <div className="flex items-center justify-center gap-12 border-t-4 border-foreground pt-12 flex-wrap">
-            <a
-              href="https://github.com/ma-hmuud"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 font-mono font-bold text-2xl hover:text-background transition-colors p-2"
-            >
-              <Github className="h-8 w-8" strokeWidth={2.5} />
-              <span>GITHUB</span>
+          
+          <Button
+            asChild
+            size="lg"
+            className="rounded-none-none h-14 px-8 text-base shadow-lg shadow-accent/20 hover:shadow-accent/40 transition-all hover:-translate-y-1"
+          >
+            <a href="mailto:mahmoud.ahmed.25.9.24@gmail.com">
+              Get In Touch
+              <ArrowUpRight className="ml-2 h-5 w-5" />
             </a>
-            <a
-              href="https://linkedin.com/in/mahmuud"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 font-mono font-bold text-2xl hover:text-background transition-colors p-2"
-            >
-              <Linkedin className="h-8 w-8" strokeWidth={2.5} />
-              <span>LINKEDIN</span>
-            </a>
-          </div>
+          </Button>
         </motion.div>
       </div>
     </section>

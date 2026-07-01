@@ -1,12 +1,10 @@
-import type { Metadata } from "next";
-import { Syne, Space_Mono, Inter } from "next/font/google";
+import { Space_Grotesk, Space_Mono, Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
-const syne = Syne({
+const spaceGrotesk = Space_Grotesk({
   variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
@@ -53,7 +51,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className={`${syne.variable} ${inter.variable} ${spaceMono.variable} antialiased selection:bg-accent selection:text-accent-foreground`}>
+      <body className={`${spaceGrotesk.variable} ${inter.variable} ${spaceMono.variable} antialiased selection:bg-accent selection:text-accent-foreground`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
